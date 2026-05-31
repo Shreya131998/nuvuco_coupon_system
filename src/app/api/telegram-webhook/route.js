@@ -23,7 +23,7 @@ export async function POST(req) {
     // 1. If user sends /start, ask for their phone number
     if (update.message.text && update.message.text.startsWith('/start')) {
       const text = "Welcome! To activate your account and receive coupons, please share your phone number by clicking the button below.";
-      
+
       await fetch(`${telegramApi}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -47,8 +47,12 @@ export async function POST(req) {
     if (update.message.contact) {
       let phone = update.message.contact.phone_number;
       // Normalize phone number (remove + sign or spaces if needed, adjust to your needs)
-      if (phone.startsWith('+')) {
-        phone = phone.substring(1); 
+      if (phone.startsWith('+91')) {
+        phone = phone.substring(3);
+      } else if (phone.startsWith('91') && phone.length === 12) {
+        phone = phone.substring(2);
+      } else if (phone.startsWith('+')) {
+        phone = phone.substring(1);
       }
 
       // Save to Google Sheet 2
@@ -89,7 +93,7 @@ export async function POST(req) {
         });
 
       } else {
-         console.error("Missing Google Credentials");
+        console.error("Missing Google Credentials");
       }
 
       return NextResponse.json({ status: 'ok' }, { status: 200 });
