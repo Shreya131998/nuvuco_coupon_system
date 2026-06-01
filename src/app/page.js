@@ -128,7 +128,7 @@ export default function Home() {
             </div>
           </div>
           <div className="banner">
-            <div className="banner-text">Reward &amp; Recognition • Shabhash Card • Rs. 100 On-Spot Gift</div>
+            <div className="banner-text">Reward &amp; Recognition • Shabhash Card</div>
           </div>
 
           <div className="toggle-wrapper">
@@ -292,7 +292,7 @@ export default function Home() {
           )}
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <button type="submit" className="submit-btn" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
-              {isSubmitting ? 'Submitting...' : 'Submit Bulk Reward'}
+              {isSubmitting ? 'Submitting...' : 'Submit Rs 100 Bulk Reward'}
             </button>
           </div>
         </form>
@@ -311,7 +311,7 @@ export default function Home() {
             </div>
           </div>
           <div className="banner">
-            <div className="banner-text">Reward &amp; Recognition • Shabhash Card • Rs. 100 On-Spot Gift</div>
+            <div className="banner-text">Reward &amp; Recognition • Shabhash Card</div>
           </div>
           <div className="toggle-wrapper">
             <button type="button" onClick={() => setIsBulk(false)} className={`toggle-btn ${!isBulk ? 'active' : ''}`}>Single Submit</button>
@@ -372,7 +372,7 @@ export default function Home() {
               </label>
             </div>
             <button type="submit" className="submit-btn" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
-              <span>{isSubmitting ? 'Submitting...' : 'Submit Reward'}</span>
+              <span>{isSubmitting ? 'Submitting...' : 'Submit Rs 100 Reward'}</span>
               {!isSubmitting && (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
