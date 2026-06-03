@@ -448,6 +448,9 @@ export default function Home() {
           </div>
         </form>
       )}
+      <div style={{ textAlign: 'center', padding: '20px', fontSize: '12px', color: '#666' }}>
+        <a href="/privacy" style={{ color: '#666' }}>Privacy Policy</a>
+      </div>
     </main>
   );
 }
