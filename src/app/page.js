@@ -120,7 +120,7 @@ export default function Home() {
         <form key="bulk-form" className="coupon-container" onSubmit={handleBulkSubmit}>
           <div className="header">
             <div className="logo-box">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Nuvoco_Vistas_Corp_Ltd.png" alt="Nuvoco Logo" />
+              <img src="nuvoco_logo.jpeg" alt="Nuvoco Logo" />
             </div>
             <div className="header-center">
               <div className="plant-title">Sonadih Cement Plant</div>
@@ -340,7 +340,7 @@ export default function Home() {
         <form key="single-form" className="coupon-container" id="couponForm" onSubmit={handleSingleSubmit}>
           <div className="header">
             <div className="logo-box">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Nuvoco_Vistas_Corp_Ltd.png" alt="Nuvoco Logo" />
+              <img src="/nuvoco_logo.jpeg" alt="Nuvoco Logo" />
             </div>
             <div className="header-center">
               <div className="plant-title">Sonadih Cement Plant</div>
