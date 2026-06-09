@@ -137,7 +137,7 @@ export async function POST(req) {
         }
       }
       if (!chatId) {
-        return NextResponse.json({ message: "Phone not registered with Telegram bot. Please register using this link: https://telegram.me/ai_coupontoken_bot?start=hello" }, { status: 400 });
+        return NextResponse.json({ message: "Phone not registered with Telegram bot." }, { status: 400 });
       }
     }
 
