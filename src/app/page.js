@@ -148,7 +148,7 @@ export default function Home() {
     <>
       <div className="header">
         <div className="logo-box">
-          <img src="/nuvoco_logo.jpeg" alt="Nuvoco Vistas Corp Ltd" />
+          <img src="/nuvoco_logo.png" alt="Nuvoco Vistas Corp Ltd" />
         </div>
         <div className="header-center">
           <div className="plant-title">Sonadih Cement Plant</div>
