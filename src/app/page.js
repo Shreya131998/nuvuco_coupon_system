@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modal, setModal] = useState(null);
   const [isBulk, setIsBulk] = useState(false);
   const [appreciatedBy, setAppreciatedBy] = useState('');
   const [dept, setDept] = useState('');
@@ -28,14 +29,27 @@ export default function Home() {
       });
       const result = await response.json();
       if (response.ok) {
-        alert(result.message || 'Reward Coupon Submitted Successfully!');
+        setModal({
+          status: 'success',
+          title: 'Reward Submitted',
+          message: result.message || 'The Shabhash Card has been submitted successfully.',
+          token: result.token,
+        });
         form.reset();
       } else {
-        alert(result.error || result.message || 'Failed to submit coupon.');
+        setModal({
+          status: 'error',
+          title: 'Submission Failed',
+          message: result.error || result.message || "We couldn't submit this reward. Please try again.",
+        });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert(error.message || 'An error occurred.');
+      setModal({
+        status: 'error',
+        title: 'Something Went Wrong',
+        message: error.message || 'An unexpected error occurred. Please try again.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -81,10 +95,11 @@ export default function Home() {
       });
       const result = await response.json();
       if (response.ok) {
-        const messages = result.results
-          .map((r) => `${r.name}: ${r.message || r.reason || r.status || ''}`)
-          .join('\n');
-        alert(messages);
+        setModal({
+          status: 'success',
+          title: 'Bulk Submission Complete',
+          results: result.results || [],
+        });
         setAppreciatedBy('');
         setDept('');
         setappreciateddept('');
@@ -92,11 +107,19 @@ export default function Home() {
         setIsContractorGlobal(false);
         setGlobalContractor('');
       } else {
-        alert(result.error || 'Bulk submission failed.');
+        setModal({
+          status: 'error',
+          title: 'Bulk Submission Failed',
+          message: result.error || 'The bulk submission could not be completed. Please try again.',
+        });
       }
     } catch (error) {
       console.error('Bulk submit error:', error);
-      alert(error.message || 'An error occurred during bulk submit.');
+      setModal({
+        status: 'error',
+        title: 'Something Went Wrong',
+        message: error.message || 'An unexpected error occurred during bulk submit.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -318,7 +341,7 @@ export default function Home() {
           <div className="bottom-section">
             <div className="checkbox-container">
               <label className="custom-radio">
-                <input type="radio" name="award_type" value="safety" required />
+                <input type="radio" name="award_type" value="safety" defaultChecked required />
                 <span className="radio-mark" />
                 <span className="label">Safety Award</span>
               </label>
@@ -343,6 +366,68 @@ export default function Home() {
         {' · '}
         <span>Nuvoco Vistas Corp Ltd</span>
       </div>
+
+      {modal && (
+        <div
+          className="modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setModal(null)}
+          onKeyDown={(e) => { if (e.key === 'Escape') setModal(null); }}
+        >
+          <div className={`modal-card ${modal.status}`} onClick={(e) => e.stopPropagation()}>
+            <div className={`modal-icon ${modal.status}`}>
+              {modal.status === 'success' ? (
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              ) : (
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              )}
+            </div>
+
+            <h3 className="modal-title">{modal.title}</h3>
+            {modal.message && <p className="modal-message">{modal.message}</p>}
+
+            {modal.token && (
+              <div className="modal-token">
+                <span className="modal-token-label">Coupon Token</span>
+                <span className="modal-token-value">{modal.token}</span>
+              </div>
+            )}
+
+            {modal.results && (
+              <div className="modal-results">
+                <p className="modal-summary">
+                  {modal.results.filter((r) => r.status === 'added').length} submitted
+                  {modal.results.some((r) => r.status !== 'added') &&
+                    `, ${modal.results.filter((r) => r.status !== 'added').length} skipped`}
+                </p>
+                <ul className="result-list">
+                  {modal.results.map((r, i) => {
+                    const ok = r.status === 'added';
+                    return (
+                      <li key={i} className={`result-item ${ok ? 'ok' : 'fail'}`}>
+                        <span className="result-icon">{ok ? '✓' : '✕'}</span>
+                        <div className="result-text">
+                          <span className="result-name">{r.name || 'Unnamed entry'}</span>
+                          <span className="result-detail">
+                            {ok
+                              ? (r.token ? `Coupon Token: ${r.token}` : (r.reason || 'Successfully added.'))
+                              : (r.message || 'Could not be submitted.')}
+                          </span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            <button type="button" className="submit-btn modal-done" autoFocus onClick={() => setModal(null)}>
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
