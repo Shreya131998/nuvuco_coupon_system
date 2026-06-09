@@ -12,10 +12,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Nuvoco Shabhash Card",
-  description: "Reward & Recognition - Sonadih Cement Plant",
+  title: "Nuvoco Shabhash Card – Employee Reward & Recognition",
+  description: "Internal employee reward and recognition portal for Nuvoco Vistas Corp Ltd, Sonadih Cement Plant. Submit Shabhash Cards to recognise outstanding safety and excellence.",
   verification: {
-    google: 'ZwBjLdnB9FKvE7UdXgmOFTDmJqCFYOFzsOZLBxqGri0', // 👈 replace with your actual code
+    google: 'ZwBjLdnB9FKvE7UdXgmOFTDmJqCFYOFzsOZLBxqGri0',
   },
 };
 
